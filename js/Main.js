@@ -67,6 +67,8 @@ function init() {
     
     // Start the animating
     requestAnimFrame(update);
+
+    window.setTimeout(ModalEffects,750);
 }
 
 /**
@@ -103,16 +105,24 @@ function setupPhysics() {
     // Create the Arrow
     arrow = new Arrow(canvas, world);
 
+    // Create the Moon
+    var moon = new Moon(canvas, world);
+
+    // Create the Instructions
+    var instr = new Instructions(canvas, world);
+
     // Create the Rocket
     rocket = new Rocket(canvas, world, canvas.width / 2, canvas.height * 4 / 5);
 
     // Set up the objects array
     game_objects = [];
-    game_objects[0] = garage;
-    game_objects[1] = satellite;
-    game_objects[2] = arrow;
-    game_objects[3] = rocket;
-    game_objects[4] = ground;
+    game_objects[0] = moon;
+    game_objects[1] = instr;
+    game_objects[2] = garage;
+    game_objects[3] = satellite;
+    game_objects[4] = arrow;
+    game_objects[5] = rocket;
+    game_objects[6] = ground;
 
     // Determine if we're on a mobile device that supports DeviceMotion
     if (window.DeviceMotionEvent) {
@@ -128,6 +138,10 @@ function setupPhysics() {
  */
 function update() {
     if ( !running ) {
+        requestAnimFrame(update);
+
+        // Redraw the world
+        draw_objects();
         return;
     }
     // Update the objects
@@ -154,9 +168,6 @@ function update_objects() {
 function draw_objects() {
     // Clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Draw the background
-    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
     for (var i in game_objects) {
         game_objects[i].draw(ctx);
@@ -288,10 +299,33 @@ function checkBounds() {
         running = false;
     } else if ( satellite.checkBounds(rocket.GetX(), rocket.GetY()) ) {
         window.open("http://jamesfator.com/blog/", "_self");
+        // window.setTimeout(launchBlogLink,3000);
         running = false;
     } else if ( arrow.checkBounds(rocket.GetX(), rocket.GetY()) ) {
         window.open("http://jamesfator.com/blog/category/projects/", "_self");
         running = false;
     }
+}
+
+function launchBlogLink() {
+    window.open("http://jamesfator.com/blog/", "_self");
+}
+
+function ModalEffects() {
+    var overlay = document.querySelector( '.md-overlay' );
+
+    var modal = document.getElementById('modal-1'),
+        close = modal.querySelector( '.md-close' );
+
+    function removeModal( hasPerspective ) {
+        classie.remove( modal, 'md-show' );
+    }
+
+    close.addEventListener( 'click', function( ev ) {
+        removeModal();
+    });
+
+    classie.add( modal, 'md-show' );
+    overlay.addEventListener( 'click', removeModal );
 }
 

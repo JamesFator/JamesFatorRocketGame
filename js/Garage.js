@@ -72,12 +72,8 @@
     }
 
     Garage.prototype.drawOverlay = function(ctx) {
-        var relative = this.body.GetPosition();
-        var sx = relative.x * SCALE;
-        var sy = relative.y * SCALE;
-
         ctx.save();
-        ctx.translate(sx, sy);
+        ctx.translate(this.sx, this.sy);
         ctx.drawImage(this.overlay, this.drawStartX, this.drawStartY, this.drawWidth, this.drawHeight);
         ctx.restore();
     }

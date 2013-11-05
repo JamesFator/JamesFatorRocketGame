@@ -33,15 +33,39 @@
 			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 			})();
 		</script>
+        <link rel="stylesheet" type="text/css" href="css/default.css" />
+        <link rel="stylesheet" type="text/css" href="css/component.css" />
     </head>
     
     <body onLoad="init();">
         <canvas id="canvas"></canvas>
         <canvas id="debug"></canvas>
+
+        <div class="md-modal" id="modal-1">
+            <div class="md-content">
+                <h3>Hello!</h3>
+                <div align="center">
+                    <p>
+                        <strong>Welcome to my website.</strong><br>
+                        Here you'll find the work I invest my time into.<br><br>
+                        I created a small rocket game to make navigating the site fun and easy. You can access the different parts of the site by flying into the various areas, or by simply clicking with your mouse.<br>
+                    </p>
+                    <button class="md-close">Lets go!</button>
+                </div>
+            </div>
+        </div>
+        <div class="md-overlay"></div><!-- the overlay element -->
     </body>
-    
+
+    <script>var polyfilter_scriptpath = 'lib/';</script>
+    <script type="text/javascript" src="lib/modernizr.custom.js"></script>
+    <script type="text/javascript" src="lib/classie.js"></script>
+    <script type="text/javascript" src="lib/cssParser.js"></script>
+    <script type="text/javascript" src="lib/css-filters-polyfill.js"></script>
     <script type="text/javascript" src="lib/Box2dWeb-2.1.a.3.min.js"></script>
     <script type="text/javascript" src="js/Ground.js"></script>
+    <script type="text/javascript" src="js/Moon.js"></script>
+    <script type="text/javascript" src="js/Instructions.js"></script>
     <script type="text/javascript" src="js/Wall.js"></script>
     <script type="text/javascript" src="js/Garage.js"></script>
     <script type="text/javascript" src="js/Satellite.js"></script>

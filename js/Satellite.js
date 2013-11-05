@@ -5,6 +5,8 @@
         this.canvas = canvas;
         this.world = world;
         this.img = img_res("Blog.png");
+        this.overlay = img_res("Blog_Overlay.png");
+        this.crashed = false;
             
         // Create the main body
         this.width = canvas.width / 6 / SCALE;
@@ -51,12 +53,20 @@
     }
 
     Satellite.prototype.hasOverlay = function() {
-        return false;
+        return this.crashed;
+    }
+
+    Satellite.prototype.drawOverlay = function(ctx) {
+        ctx.save();
+        ctx.translate(this.sx, this.sy);
+        ctx.drawImage(this.overlay, this.drawStartX, this.drawStartY, this.drawWidth, this.drawHeight);
+        ctx.restore();
     }
 
     Satellite.prototype.checkBounds = function(x, y) {
         if ( x > this.absX && x < this.absX + this.drawWidth ) {
-            if ( y > this.absY && y < this.absY + this.drawHeight ) {
+            if ( y > this.absY && y < (this.absY + this.drawHeight) * 4/5 ) {
+                this.crashed = true;
                 return true;
             }
         }

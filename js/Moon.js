@@ -1,16 +1,16 @@
 (function(window) {
     
-    function Arrow(canvas, world) {
+    function Moon(canvas, world) {
         // Initialize the variables
         this.canvas = canvas;
         this.world = world;
-        this.img = img_res("Projects.png");
+        this.img = img_res("Moon.png");
             
         // Create the main body
         var bodyDef = new b2BodyDef();
         bodyDef.type = b2Body.b2_staticBody;
-        bodyDef.position.x = canvas.width / SCALE - 6.0 * draw_scale / 2;
-        bodyDef.position.y = 5.2 * draw_scale / 2;
+        bodyDef.position.x = canvas.width / SCALE - 17.0 * draw_scale / 2;
+        bodyDef.position.y = 17.0 * draw_scale / 2;
         var body = world.CreateBody(bodyDef);
         this.body = body;
 
@@ -25,35 +25,19 @@
         this.absY = this.sy + this.drawStartY;
     }
 
-    Arrow.prototype.tick = function() { }
+    Moon.prototype.tick = function() { }
 
-    Arrow.prototype.draw = function(ctx) {
+    Moon.prototype.draw = function(ctx) {
         ctx.save();
         ctx.translate(this.sx, this.sy);
         ctx.drawImage(this.img, this.drawStartX, this.drawStartY, this.drawWidth, this.drawHeight);
         ctx.restore();
     }
 
-    Arrow.prototype.hasOverlay = function() {
-        return false;
-    }
-
-    Arrow.prototype.checkBounds = function(x, y) {
-        if ( y < 0 ) {
-            return true;
-        }
-        return false;
-    }
-
-    Arrow.prototype.checkAltBounds = function(x, y) {
-        if ( x > this.absX && x < this.absX + this.drawWidth ) {
-            if ( y > this.absY && y < this.absY + this.drawHeight ) {
-                return true;
-            }
-        }
+    Moon.prototype.hasOverlay = function() {
         return false;
     }
     
-    window.Arrow = Arrow;
+    window.Moon = Moon;
     
 })(window);
